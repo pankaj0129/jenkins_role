@@ -1,0 +1,64 @@
+---
+- name: Update package cache
+  apt:
+    update_cache: yes
+
+- name: Install Java 17
+  apt:
+    name: "{{ java_version }}"
+    state: present
+
+- name: Add Jenkins repository key from URL
+  apt_key:
+    url: "{{ jenkins_repo_key_url }}"
+    state: present
+
+- name: Add Jenkins repository
+  apt_repository:
+    repo: "{{ jenkins_repo_url }}"
+    state: present
+
+- name: Install Jenkins
+  apt:
+    name: "{{ jenkins_service_name }}"
+    state: present
+
+- name: Install Git
+  apt:
+    name: "{{ git_package_name }}"
+    state: present
+
+- name: Install Go
+  apt:
+    name: "{{ go_package_name }}"
+    state: present
+
+- name: Set Go PATH
+  ansible.builtin.set_fact:
+    ansible_env:
+      PATH: "{{ ansible_env.PATH }}:/usr/local/go/bin"
+  
+- name: Check Go version
+  command: "go version"
+
+- name: Download Gitleaks tarball
+  get_url:
+    url: "{{ gitleaks_download_url }}"
+    dest: "/tmp/gitleaks.tar.gz"
+
+- name: Extract Gitleaks tarball
+  ansible.builtin.unarchive:
+    src: "/tmp/gitleaks.tar.gz"
+    dest: "/tmp"
+    remote_src: yes
+
+- name: Move Gitleaks binary to {{ gitleaks_dest_dir }}
+  command:
+    cmd: "mv /tmp/gitleaks {{ gitleaks_dest_dir }}"
+    creates: "{{ gitleaks_dest_dir }}/gitleaks"
+
+- name: Check Gitleaks version
+  command: "{{ gitleaks_dest_dir }}/gitleaks version"
+
+# Include handlers
+- include: handlers/main.yml

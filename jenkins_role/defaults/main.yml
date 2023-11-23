@@ -1,0 +1,13 @@
+---
+# defaults file for jenkins_role
+# jenkins_role/defaults/main.yml
+java_package: openjdk-17-jdk
+jenkins_repo_key_url: https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+jenkins_repo_url: deb http://pkg.jenkins.io/debian-stable binary/
+jenkins_package: jenkins
+git_package: git
+go_package: golang-go
+gitleaks_version: v8.18.0
+gitleaks_url: https://github.com/zricethezav/gitleaks/releases/download/{{ gitleaks_version }}/gitleaks_{{ gitleaks_version }}_linux_x64.tar.gz
+gitleaks_tmp_dir: /tmp
+gitleaks_bin_path: /usr/local/bin/gitleaks

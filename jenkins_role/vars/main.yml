@@ -1,0 +1,28 @@
+---
+# Java version to install
+java_version: "openjdk-17-jdk"
+
+# Jenkins repository key URL
+jenkins_repo_key_url: "https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key"
+
+# Jenkins repository URL
+jenkins_repo_url: "deb http://pkg.jenkins.io/debian-stable binary/"
+
+# Jenkins service name
+jenkins_service_name: "jenkins"
+
+# Git package name
+git_package_name: "git"
+
+# Go package name
+go_package_name: "golang-go"
+
+# Gitleaks version to download
+gitleaks_version: "v8.18.0"
+
+# Gitleaks download URL
+gitleaks_download_url: "https://github.com/zricethezav/gitleaks/releases/download/v8.18.0/gitleaks_8.18.0_linux_x64.tar.gz"
+
+# Gitleaks destination directory
+gitleaks_dest_dir: "/usr/local/bin/"
+
